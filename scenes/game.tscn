@@ -1,17 +1,133 @@
-[gd_scene load_steps=6 format=3 uid="uid://d20ajsjbr6tqu"]
+[gd_scene load_steps=10 format=3 uid="uid://d20ajsjbr6tqu"]
 
 [ext_resource type="Script" path="res://scripts/game.cs" id="1_0gbpx"]
 [ext_resource type="Script" path="res://scripts/Menu.cs" id="1_ajlfw"]
 [ext_resource type="Theme" uid="uid://dcpj5d4kloru2" path="res://styles/menus.tres" id="1_bvnhr"]
+[ext_resource type="Texture2D" uid="uid://ccxus4gbyerry" path="res://textures/Field.tres" id="3_13hsb"]
 [ext_resource type="Script" path="res://scripts/Settings.cs" id="4_76ung"]
+[ext_resource type="Script" path="res://scenes/RadioReference.cs" id="4_vm11e"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_how0r"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rn6gx"]
+texture = ExtResource("3_13hsb")
 
-[node name="Main" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lvul"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.148438, 0.148438, 0.148438, 1)
+border_width_left = 2
+border_color = Color(0.235294, 0.235294, 0.235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mwqc"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Main" type="Node2D" groups=["CallToLoad", "CallToSave"]]
 script = ExtResource("1_0gbpx")
 
-[node name="bg" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_how0r")
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/separation = 0
+
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_bvnhr")
+all_tabs_in_front = true
+drag_to_rearrange_enabled = true
+
+[node name="Map" type="Panel" parent="HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_rn6gx")
+
+[node name="Radio Reference" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
+layout_mode = 2
+script = ExtResource("4_vm11e")
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Radio Reference"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("1_bvnhr")
+item_count = 3
+item_0/text = "Basics"
+item_1/text = "Change Course"
+item_2/text = "Change Speed"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/TabContainer/Radio Reference"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Basics" type="RichTextLabel" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Basics"
+fit_content = true
+
+[node name="Change Course" type="RichTextLabel" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Change Course"
+fit_content = true
+
+[node name="Change Speed" type="RichTextLabel" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Change Speed"
+fit_content = true
+
+[node name="Manual" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Ship Overview" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_bvnhr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7lvul")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_3mwqc")
+text = "This is the beginning of the radio log"
+scroll_following = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[node name="Panel" type="Panel" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Place your radio command here"
+
+[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Send"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
@@ -20,6 +136,7 @@ visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme = ExtResource("1_bvnhr")
+theme_type_variation = &"transparent"
 script = ExtResource("1_ajlfw")
 
 [node name="CenterContainer" type="CenterContainer" parent="MenuContainer"]
@@ -53,4 +170,5 @@ visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme = ExtResource("1_bvnhr")
+theme_type_variation = &"transparent"
 script = ExtResource("4_76ung")
