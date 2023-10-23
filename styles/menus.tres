@@ -1,20 +1,16 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dcpj5d4kloru2"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dcpj5d4kloru2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v4xfv"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
+bg_color = Color(0.0627451, 0.0627451, 0.0627451, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mknia"]
 content_margin_left = 4.0
@@ -51,7 +47,7 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -63,7 +59,7 @@ content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0, 0, 0, 0.6)
+bg_color = Color(0, 0, 0, 0.54902)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -133,14 +129,23 @@ content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
 bg_color = Color(0.148438, 0.148438, 0.148438, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oakge"]
-bg_color = Color(0.148438, 0.148438, 0.148438, 1)
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0ykb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nt10j"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.0976563, 0.0976563, 0.0976563, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqs7f"]
 content_margin_left = 10.0
@@ -162,4 +167,13 @@ LineEdit/styles/focus = SubResource("StyleBoxFlat_gltix")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_4tp28")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_jyxpo")
 TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_oakge")
+shipneed/base_type = &"Label"
+shipneed/colors/font_color = Color(0.441406, 0.441406, 0.441406, 1)
+shipneed/colors/font_color_active = Color(0.789063, 0.789063, 0.789063, 1)
+shipneed/colors/font_outline_color = Color(0, 0, 0, 1)
+shipneed/colors/font_shadow_color = Color(0, 0, 0, 1)
+shipneed/font_sizes/font_size = 20
+shipneed/styles/active = SubResource("StyleBoxFlat_e0ykb")
+shipneed/styles/normal = SubResource("StyleBoxFlat_nt10j")
+transparent/base_type = &"PanelContainer"
 transparent/styles/panel = SubResource("StyleBoxFlat_jqs7f")

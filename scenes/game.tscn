@@ -1,14 +1,30 @@
-[gd_scene load_steps=10 format=3 uid="uid://d20ajsjbr6tqu"]
+[gd_scene load_steps=17 format=3 uid="uid://d20ajsjbr6tqu"]
 
 [ext_resource type="Script" path="res://scripts/game.cs" id="1_0gbpx"]
 [ext_resource type="Script" path="res://scripts/Menu.cs" id="1_ajlfw"]
 [ext_resource type="Theme" uid="uid://dcpj5d4kloru2" path="res://styles/menus.tres" id="1_bvnhr"]
 [ext_resource type="Texture2D" uid="uid://ccxus4gbyerry" path="res://textures/Field.tres" id="3_13hsb"]
 [ext_resource type="Script" path="res://scripts/Settings.cs" id="4_76ung"]
-[ext_resource type="Script" path="res://scenes/RadioReference.cs" id="4_vm11e"]
+[ext_resource type="Script" path="res://scripts/Docs.cs" id="4_ep4d5"]
+[ext_resource type="Texture2D" uid="uid://c3en60ougqrmg" path="res://icon.svg" id="5_y3cay"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rn6gx"]
 texture = ExtResource("3_13hsb")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b85sl"]
+texture = ExtResource("5_y3cay")
+
+[sub_resource type="LabelSettings" id="LabelSettings_c7crs"]
+font_size = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjnoi"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3wq1m"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_obeq4"]
+font_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lvul"]
 content_margin_left = 10.0
@@ -30,6 +46,19 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qa07"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+shadow_size = 2
+shadow_offset = Vector2(3, 3)
+
 [node name="Main" type="Node2D" groups=["CallToLoad", "CallToSave"]]
 script = ExtResource("1_0gbpx")
 
@@ -46,14 +75,14 @@ all_tabs_in_front = true
 drag_to_rearrange_enabled = true
 
 [node name="Map" type="Panel" parent="HBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_rn6gx")
 
 [node name="Radio Reference" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
-script = ExtResource("4_vm11e")
+script = ExtResource("4_ep4d5")
 
 [node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Radio Reference"]
 custom_minimum_size = Vector2(200, 0)
@@ -91,10 +120,99 @@ fit_content = true
 [node name="Manual" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
+script = ExtResource("4_ep4d5")
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Manual"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("1_bvnhr")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/TabContainer/Manual"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Manual/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Ship Overview" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Ship Overview"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("1_bvnhr")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/TabContainer/Ship Overview"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_bvnhr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_b85sl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ID" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "CALLSIGN - Name"
+label_settings = SubResource("LabelSettings_c7crs")
+
+[node name="Tag" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tag"
+
+[node name="Spacer" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjnoi")
+
+[node name="Type" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Type: Cargo"
+label_settings = SubResource("LabelSettings_3wq1m")
+
+[node name="Spacer2" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjnoi")
+
+[node name="Requirements" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Requirements"
+label_settings = SubResource("LabelSettings_obeq4")
+
+[node name="Needs" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer3" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjnoi")
+
+[node name="Size" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Size: "
+label_settings = SubResource("LabelSettings_3wq1m")
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -127,6 +245,7 @@ placeholder_text = "Place your radio command here"
 
 [node name="Button" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme = ExtResource("1_bvnhr")
 text = "Send"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -172,3 +291,20 @@ offset_bottom = 1080.0
 theme = ExtResource("1_bvnhr")
 theme_type_variation = &"transparent"
 script = ExtResource("4_76ung")
+
+[node name="BoatPrefab" type="Node2D" parent="."]
+position = Vector2(200, 151)
+
+[node name="Sprite2D" type="Sprite2D" parent="BoatPrefab"]
+texture_filter = 5
+rotation = -6.28319
+scale = Vector2(5, 5)
+offset = Vector2(0, 0.5)
+
+[node name="Label" type="Label" parent="BoatPrefab"]
+offset_left = 46.0
+offset_top = -83.0
+offset_right = 192.0
+offset_bottom = -47.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8qa07")
+text = "CALLSIGN - Name"

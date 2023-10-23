@@ -12,7 +12,7 @@ public partial class SaveSystem : Node
 
 		foreach (Node node in group)
 		{
-			if (!(node is Saveable))
+			if (node is not Saveable)
 			{
 				return new Result(false, "SaveSystem.Save", $"{node.GetType().Name} is not saveable");
 			}
@@ -37,7 +37,7 @@ public partial class SaveSystem : Node
 
 		foreach (Node node in group)
 		{
-            if (!(node is Loadable))
+            if (node is not Loadable)
             {
                 return new Result(false, "SaveSystem.Load", $"{node.GetType().Name} is not loadable");
             }
@@ -58,7 +58,7 @@ public partial class SaveSystem : Node
         return new Result(true, "SaveSystem.SetupSave", "Save object was correctly set up");
     }
 
-	public string[] getAvailableSaves()
+	public static string[] GetAvailableSaves()
 	{
 		return Directory.GetFiles(ProjectSettings.GlobalizePath("user://"), "*.save");
 	}
