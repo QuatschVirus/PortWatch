@@ -1,8 +1,9 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Runtime.CompilerServices;
 
-public partial class game : Node2D
+public partial class game : Node2D, Saveable, Loadable
 {
 	private SaveSystem Saves;
 
@@ -10,7 +11,8 @@ public partial class game : Node2D
 	public override void _Ready()
 	{
 		Saves = GetNode<SaveSystem>("/root/Saves");
-    }
+		Saves.Load();
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -20,6 +22,16 @@ public partial class game : Node2D
 	public Result Save()
 	{
 		return Saves.Save();
+	}
+
+	public PayloadResult<Dictionary<string, Variant>> Serialize()
+	{
+		return new PayloadResult<Dictionary<string, Variant>>(true, "game.Serialze", "Serialized game", new Dictionary<string, Variant>());
+	}
+
+	public Result FromSerial(Dictionary<string, Variant> data)
+	{
+		return new Result(true, "game.FromSerial", "Loaded game from serial");
 	}
 }
 
@@ -57,12 +69,12 @@ public class Result
 
 public class PayloadResult<T> : Result
 {
-	private T Payload { get; }
+	public T Payload { get; }
 
-    public PayloadResult(bool success, string operation, string message, T payload, bool forceLog = false) : base(success, operation, message, forceLog)
-    {
+	public PayloadResult(bool success, string operation, string message, T payload, bool forceLog = false) : base(success, operation, message, forceLog)
+	{
 		Payload = payload;
-    }
+	}
 
 	public static implicit operator T(PayloadResult<T> result)
 	{
