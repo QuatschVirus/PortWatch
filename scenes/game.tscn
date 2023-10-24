@@ -5,11 +5,11 @@
 [ext_resource type="Theme" uid="uid://dcpj5d4kloru2" path="res://styles/menus.tres" id="1_bvnhr"]
 [ext_resource type="Texture2D" uid="uid://ccxus4gbyerry" path="res://textures/Field.tres" id="3_13hsb"]
 [ext_resource type="Script" path="res://scripts/Settings.cs" id="4_76ung"]
+[ext_resource type="Script" path="res://scenes/Map.cs" id="4_484r3"]
 [ext_resource type="Script" path="res://scripts/Docs.cs" id="4_ep4d5"]
 [ext_resource type="Texture2D" uid="uid://c3en60ougqrmg" path="res://icon.svg" id="5_y3cay"]
 [ext_resource type="Script" path="res://scenes/Radio.cs" id="6_smdcw"]
 [ext_resource type="Script" path="res://scenes/Boat.cs" id="8_lnyl5"]
-[ext_resource type="Texture2D" uid="uid://h6aaxhaneeoa" path="res://textures/Ship.png" id="8_o6iho"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rn6gx"]
 texture = ExtResource("3_13hsb")
@@ -85,7 +85,10 @@ drag_to_rearrange_enabled = true
 [node name="Map" type="Panel" parent="VBoxContainer/HBoxContainer2/TabContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
+mouse_default_cursor_shape = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_rn6gx")
+script = ExtResource("4_484r3")
 
 [node name="Manual" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer"]
 visible = false
@@ -261,18 +264,20 @@ theme_type_variation = &"transparent"
 script = ExtResource("4_76ung")
 
 [node name="BoatPrefab" type="Node2D" parent="."]
+visible = false
 position = Vector2(200, 151)
 script = ExtResource("8_lnyl5")
 COLORS = Array[Color]([Color(1, 1, 1, 1), Color(1, 0.164706, 0, 1), Color(0.196078, 0.196078, 0.196078, 1), Color(0.392157, 0.392157, 0.392157, 1), Color(1, 0.588235, 0, 1)])
+HOVER_MASK = Color(0, 0, 0, 0.498039)
 
 [node name="Sprite2D" type="Sprite2D" parent="BoatPrefab"]
 texture_filter = 5
 rotation = -6.28319
 scale = Vector2(2.5, 2.5)
-texture = ExtResource("8_o6iho")
 offset = Vector2(0, 0.5)
 
 [node name="Label" type="Label" parent="BoatPrefab"]
+visible = false
 offset_left = 20.0
 offset_top = -60.0
 offset_right = 166.0
