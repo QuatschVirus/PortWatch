@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d20ajsjbr6tqu"]
+[gd_scene load_steps=20 format=3 uid="uid://d20ajsjbr6tqu"]
 
 [ext_resource type="Script" path="res://scripts/game.cs" id="1_0gbpx"]
 [ext_resource type="Script" path="res://scripts/Menu.cs" id="1_ajlfw"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://scripts/Settings.cs" id="4_76ung"]
 [ext_resource type="Script" path="res://scripts/Docs.cs" id="4_ep4d5"]
 [ext_resource type="Texture2D" uid="uid://c3en60ougqrmg" path="res://icon.svg" id="5_y3cay"]
+[ext_resource type="Script" path="res://scenes/Radio.cs" id="6_smdcw"]
+[ext_resource type="Script" path="res://scenes/Boat.cs" id="8_lnyl5"]
+[ext_resource type="Texture2D" uid="uid://h6aaxhaneeoa" path="res://textures/Ship.png" id="8_o6iho"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rn6gx"]
 texture = ExtResource("3_13hsb")
@@ -26,15 +29,6 @@ font_size = 20
 [sub_resource type="LabelSettings" id="LabelSettings_obeq4"]
 font_size = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lvul"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.148438, 0.148438, 0.148438, 1)
-border_width_left = 2
-border_color = Color(0.235294, 0.235294, 0.235294, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mwqc"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -45,6 +39,15 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lvul"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.148438, 0.148438, 0.148438, 1)
+border_width_left = 2
+border_color = Color(0.235294, 0.235294, 0.235294, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qa07"]
 content_margin_left = 5.0
@@ -62,90 +65,57 @@ shadow_offset = Vector2(3, 3)
 [node name="Main" type="Node2D" groups=["CallToLoad", "CallToSave"]]
 script = ExtResource("1_0gbpx")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0
 theme_override_constants/separation = 0
 
-[node name="TabContainer" type="TabContainer" parent="HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_bvnhr")
 all_tabs_in_front = true
 drag_to_rearrange_enabled = true
 
-[node name="Map" type="Panel" parent="HBoxContainer/TabContainer"]
+[node name="Map" type="Panel" parent="VBoxContainer/HBoxContainer2/TabContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_rn6gx")
 
-[node name="Radio Reference" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
+[node name="Manual" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer"]
 visible = false
 layout_mode = 2
 script = ExtResource("4_ep4d5")
 
-[node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Radio Reference"]
+[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer2/TabContainer/Manual"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("1_bvnhr")
-item_count = 3
-item_0/text = "Basics"
-item_1/text = "Change Course"
-item_2/text = "Change Speed"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/TabContainer/Radio Reference"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2/TabContainer/Manual"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer/Manual/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Basics" type="RichTextLabel" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Basics"
-fit_content = true
-
-[node name="Change Course" type="RichTextLabel" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Change Course"
-fit_content = true
-
-[node name="Change Speed" type="RichTextLabel" parent="HBoxContainer/TabContainer/Radio Reference/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Change Speed"
-fit_content = true
-
-[node name="Manual" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
+[node name="Ship Overview" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer"]
 visible = false
 layout_mode = 2
-script = ExtResource("4_ep4d5")
 
-[node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Manual"]
+[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("1_bvnhr")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/TabContainer/Manual"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Manual/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Ship Overview" type="HBoxContainer" parent="HBoxContainer/TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="ItemList" type="ItemList" parent="HBoxContainer/TabContainer/Ship Overview"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("1_bvnhr")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/TabContainer/Ship Overview"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -153,97 +123,95 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_bvnhr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Icon" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Icon" type="Panel" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_b85sl")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ID" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ID" type="Label" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "CALLSIGN - Name"
 label_settings = SubResource("LabelSettings_c7crs")
 
-[node name="Tag" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Tag" type="Label" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Tag"
 
-[node name="Spacer" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Panel" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yjnoi")
 
-[node name="Type" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Type" type="Label" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Type: Cargo"
 label_settings = SubResource("LabelSettings_3wq1m")
 
-[node name="Spacer2" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Spacer2" type="Panel" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yjnoi")
 
-[node name="Requirements" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Requirements" type="Label" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Requirements"
 label_settings = SubResource("LabelSettings_obeq4")
 
-[node name="Needs" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Needs" type="Label" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Spacer3" type="Panel" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Spacer3" type="Panel" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yjnoi")
 
-[node name="Size" type="Label" parent="HBoxContainer/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
+[node name="Size" type="Label" parent="VBoxContainer/HBoxContainer2/TabContainer/Ship Overview/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Size: "
 label_settings = SubResource("LabelSettings_3wq1m")
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("1_bvnhr")
-theme_override_styles/panel = SubResource("StyleBoxFlat_7lvul")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_3mwqc")
+bbcode_enabled = true
 text = "This is the beginning of the radio log"
 scroll_following = true
 autowrap_mode = 0
 shortcut_keys_enabled = false
 
-[node name="Panel" type="Panel" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Radio" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_bvnhr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7lvul")
+script = ExtResource("6_smdcw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Radio"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/Radio/HBoxContainer"]
+layout_mode = 2
+text = "Tower to "
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/Radio/HBoxContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Place your radio command here"
-
-[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/Radio/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_bvnhr")
 text = "Send"
@@ -294,17 +262,20 @@ script = ExtResource("4_76ung")
 
 [node name="BoatPrefab" type="Node2D" parent="."]
 position = Vector2(200, 151)
+script = ExtResource("8_lnyl5")
+COLORS = Array[Color]([Color(1, 1, 1, 1), Color(1, 0.164706, 0, 1), Color(0.196078, 0.196078, 0.196078, 1), Color(0.392157, 0.392157, 0.392157, 1), Color(1, 0.588235, 0, 1)])
 
 [node name="Sprite2D" type="Sprite2D" parent="BoatPrefab"]
 texture_filter = 5
 rotation = -6.28319
-scale = Vector2(5, 5)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("8_o6iho")
 offset = Vector2(0, 0.5)
 
 [node name="Label" type="Label" parent="BoatPrefab"]
-offset_left = 46.0
-offset_top = -83.0
-offset_right = 192.0
-offset_bottom = -47.0
+offset_left = 20.0
+offset_top = -60.0
+offset_right = 166.0
+offset_bottom = -24.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_8qa07")
 text = "CALLSIGN - Name"
