@@ -99,7 +99,6 @@ public partial class Boat : Node2D
 				{
 					Label.Show();
 				}
-
             } 
 		}
     }
