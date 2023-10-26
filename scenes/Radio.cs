@@ -28,23 +28,33 @@ public partial class Radio : PanelContainer
 
 	public void Send(string callsign, string message, RadioID id)
 	{
-		if (id == 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(id), id, "ID 0 is reserved and may not be used");
-		}
-		radioLog.PushColor(COLORS[0]);
-		radioLog.AppendText($"[{callsign}] ");
-		radioLog.Pop();
 		radioLog.PushColor(COLORS[(int)id]);
-		radioLog.AppendText(message);
+		radioLog.AppendText(callsign + "to Tower: " + message);
 		radioLog.Pop();
 		radioLog.AppendText("\n");
 	}
+
+	public void AddCallsign(string callsign)
+	{
+		GetNode<OptionButton>("/PanelContainer/HBoxContainer/OptionButton").AddItem(callsign);
+	}
+
+	public void RemoveCallsign(string callsign)
+	{
+		OptionButton button = GetNode<OptionButton>("/PanelContainer/HBoxContainer/OptionButton");
+		for (int indexer = 0; indexer < button.ItemCount; indexer++)
+		{
+			if(button.GetItemText(indexer).Equals(callsign))
+			{
+				button.RemoveItem(indexer);
+			}
+		}
+
+    }
 }
 
 public enum RadioID
 {
-	RESERVED,
 	PLAYER,
 	SHORE,
 	ELEVATED,

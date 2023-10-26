@@ -8,10 +8,23 @@ public partial class Boat : Node2D
 	[Export]
 	public Color HOVER_MASK;
 
+	private Radio radio;
+
 	public ShipType ShipType { get; private set; }
 	public string Callsign { get; private set; }
 	public string DisplayName { get; private set; }
 	public string Tag { get; private set; }
+
+	private int heading;
+	public int Heading
+	{
+		get => heading;
+		set
+		{
+			sprite.RotationDegrees = value - 90;
+			heading = value;
+		}
+	}
 
 	private BoatState state;
 	public BoatState State
@@ -48,6 +61,8 @@ public partial class Boat : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
+		radio = GetNode<Radio>("%Radio");
+
 		COLORS = GetNode<Boat>("/root/Main/BoatPrefab").COLORS;
 		HOVER_MASK = GetNode<Boat>("/root/Main/BoatPrefab").HOVER_MASK;
 
@@ -63,6 +78,8 @@ public partial class Boat : Node2D
 		Show();
 
         Update();
+
+		radio.Send(Callsign, $"{DisplayName}, Tag {Tag} entering controlled area", RadioID.NORMAL);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

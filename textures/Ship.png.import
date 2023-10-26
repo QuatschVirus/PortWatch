@@ -3,12 +3,12 @@
 importer="image"
 type="Image"
 uid="uid://h6aaxhaneeoa"
-path="res://.godot/imported/SHIP.png-d5726edfbba086273eafbace4df064b6.image"
+path="res://.godot/imported/Ship.png-82e73ce133ddffcb296daed9e70bdaa5.image"
 
 [deps]
 
-source_file="res://textures/SHIP.png"
-dest_files=["res://.godot/imported/SHIP.png-d5726edfbba086273eafbace4df064b6.image"]
+source_file="res://textures/Ship.png"
+dest_files=["res://.godot/imported/Ship.png-82e73ce133ddffcb296daed9e70bdaa5.image"]
 
 [params]
 

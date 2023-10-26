@@ -3,13 +3,16 @@ using System;
 
 public partial class Map : Panel
 {
+	private Radio radio;
+
 	[Signal]
 	public delegate void HideLabelsEventHandler();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GenerateBoat();
+		radio = GetNode<Radio>("%Radio");
+		GenerateBoat(); // for debugging purposes
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,11 +35,18 @@ public partial class Map : Panel
         }
 	}
 
+	public void RemoveBoat(Boat boat)
+	{
+		radio.RemoveCallsign(boat.Callsign);
+
+		boat.Free();
+	}
+
 
     public void GenerateBoat()
 	{
 		// Do stuff
-		Boat boat = new Boat("TEST", "TstShip", ShipType.SHIP, BoatState.NORMAL); //temp, for testing
+		Boat boat = new Boat("TEST", "TestShip", ShipType.SHIP, BoatState.NORMAL); //temp, for testing
 		boat.HideLabels += () => { EmitSignal(SignalName.HideLabels); };
 		HideLabels += () => { boat.Label.Hide(); };
 
